@@ -28,7 +28,7 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    public RefreshToken verifyExpiration(RefreshToken refreshToken) throws Exception {
+    public RefreshToken verifyExpiration(RefreshToken refreshToken) throws RuntimeException {
         if (refreshToken.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(refreshToken);
             throw new RuntimeException(
