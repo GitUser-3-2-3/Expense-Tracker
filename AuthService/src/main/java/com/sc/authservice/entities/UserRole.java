@@ -1,15 +1,14 @@
-package com.sc.authservice.models;
+package com.sc.authservice.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "roles")
-@Getter
-@Setter
-@Entity
 @Builder
-@NoArgsConstructor
+@Data
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "roles")
 public class UserRole {
 
     @Id

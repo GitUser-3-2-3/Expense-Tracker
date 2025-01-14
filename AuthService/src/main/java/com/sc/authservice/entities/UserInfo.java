@@ -1,19 +1,20 @@
-package com.sc.authservice.models;
-
+package com.sc.authservice.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "users")
-@Getter
-@Setter
-@Entity
 @Builder
-@NoArgsConstructor
+@Data
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "users")
 public class UserInfo {
 
     @Id

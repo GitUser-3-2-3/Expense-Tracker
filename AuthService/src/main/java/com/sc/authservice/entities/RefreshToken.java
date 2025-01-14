@@ -1,26 +1,27 @@
-package com.sc.authservice.models;
+package com.sc.authservice.entities;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@Table(name = "tokens")
-@Getter
-@Setter
-@Entity
 @Builder
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@NoArgsConstructor
+@Data
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "tokens")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String token;
     private Instant expiryDate;
