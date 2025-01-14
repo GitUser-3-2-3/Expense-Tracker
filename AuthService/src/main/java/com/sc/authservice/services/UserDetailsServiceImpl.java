@@ -30,19 +30,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new CustomUserDetails(userInfo);
     }
 
-    public UserInfo checkIfUserAlreadyExists(UserInfoDTO userInfoDto) {
-        return userInfoRepository.findByUsername(userInfoDto.getUsername());
+    public UserInfo checkIfUserAlreadyExists(UserInfoDTO userInfoDTO) {
+        return userInfoRepository.findByUsername(userInfoDTO.getUsername());
     }
 
-    public Boolean signupUser(UserInfoDTO userInfoDto) {
-        userInfoDto.setPassword(passwordEncoder.encode(userInfoDto.getPassword()));
-        if (Objects.nonNull(checkIfUserAlreadyExists(userInfoDto))) {
+    public Boolean signupUser(UserInfoDTO userInfoDTO) {
+        userInfoDTO.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
+        if (Objects.nonNull(checkIfUserAlreadyExists(userInfoDTO))) {
             return false;
         }
         String userId = UUID.randomUUID().toString();
 
-        UserInfo userInfo = UserInfo.builder().userId(userId).username(userInfoDto.getUsername())
-            .password(userInfoDto.getPassword()).roles(new HashSet<>()).build();
+        UserInfo userInfo = UserInfo.builder().userId(userId).username(userInfoDTO.getUsername())
+            .password(userInfoDTO.getPassword()).roles(new HashSet<>()).build();
         userInfoRepository.save(userInfo);
         return true;
     }
