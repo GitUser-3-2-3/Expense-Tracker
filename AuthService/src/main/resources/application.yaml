@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: AUTH-SERVICE
+
+# Custom
+application:
+  security:
+    jwt:
+      secret-key: 78EC211A54A5C8A636A215F8EFC72
