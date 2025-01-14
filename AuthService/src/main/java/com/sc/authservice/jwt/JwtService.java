@@ -20,7 +20,6 @@ public class JwtService {
     private static String SECRET_KEY;
 
     public String createToken(Map<String, Object> extraClaims, String username) {
-
         return Jwts.builder().claims(extraClaims).subject(username)
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(new Date(System.currentTimeMillis() + 864000))
