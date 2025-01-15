@@ -7,6 +7,7 @@ import com.sc.authservice.model.UserInfoDTO;
 import com.sc.authservice.request.AuthRequestDTO;
 import com.sc.authservice.request.RefreshTokenRequestDTO;
 import com.sc.authservice.response.JwtResponseDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +33,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
+    @Transactional
     public Object signup(UserInfoDTO userInfoDTO) {
         Boolean isSignedUp = userDetailsService.signupUser(userInfoDTO);
         if (Boolean.FALSE.equals(isSignedUp)) {

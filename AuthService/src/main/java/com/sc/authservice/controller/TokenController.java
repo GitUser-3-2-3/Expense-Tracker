@@ -21,14 +21,14 @@ public class TokenController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     public ResponseEntity<?> loginAndGetToken(@RequestBody AuthRequestDTO requestDTO) {
         try {
             Object jwtResponse = authenticationService.loginAndGetToken(requestDTO);
             return new ResponseEntity<>(jwtResponse, OK);
         }
         catch (Exception rtExp) {
-            return new ResponseEntity<>("Exception in User service", INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Exception in User service: " + rtExp.getMessage(), INTERNAL_SERVER_ERROR);
         }
     }
 

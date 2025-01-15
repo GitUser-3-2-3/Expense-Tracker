@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("auth/v1/")
@@ -27,10 +27,11 @@ public class AuthController {
     public ResponseEntity<?> signup(@RequestBody UserInfoDTO userInfoDTO) {
         try {
             Object user = authenticationService.signup(userInfoDTO);
-            return new ResponseEntity<>(user, CREATED);
+            return new ResponseEntity<>(user, OK);
         }
         catch (Exception rtExp) {
-            return new ResponseEntity<>("Exception in user service", INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(
+                "Exception in user service " + rtExp.getMessage(), INTERNAL_SERVER_ERROR);
         }
     }
 }

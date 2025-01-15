@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
-    private static String SECRET_KEY;
+    private String SECRET_KEY;
 
     public String createToken(Map<String, Object> extraClaims, String username) {
         return Jwts.builder().claims(extraClaims).subject(username)
