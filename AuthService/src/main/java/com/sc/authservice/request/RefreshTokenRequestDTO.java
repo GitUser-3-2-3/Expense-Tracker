@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshTokenDTO {
-    private String jwtToken;
+public class RefreshTokenRequestDTO {
+    private String refreshToken;
 }
