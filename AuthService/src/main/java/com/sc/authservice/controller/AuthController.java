@@ -28,8 +28,8 @@ public class AuthController {
     public AuthController(
         UserDetailsServiceImpl userDetailsService, RefreshTokenService refreshTokenService, JwtService jwtService) {
         this.userDetailsService = userDetailsService;
-        this.refreshTokenService = refreshTokenService;
         this.jwtService = jwtService;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("signup")
