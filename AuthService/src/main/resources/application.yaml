@@ -1,6 +1,19 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: AUTH-SERVICE
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/authservice
+    username: root
+    password: Qwerty1,0*
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 # Custom
 application:
