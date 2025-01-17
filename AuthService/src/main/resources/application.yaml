@@ -18,8 +18,8 @@ spring:
   kafka:
     producer:
       bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serializer.StringSerializer
-      value-serializer: com/sc/authservice/serializer/UserInfoSerializer.java
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.sc.authservice.serializer.UserInfoSerializer
     #Custom
     topic:
       name: ExpenseApp-Auth

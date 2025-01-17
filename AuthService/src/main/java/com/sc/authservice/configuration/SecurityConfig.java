@@ -33,8 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity security, JwtAuthFilter jwtAuthFilter) throws Exception {
         security.csrf(AbstractHttpConfigurer::disable).cors(CorsConfigurer::disable)
             .authorizeHttpRequests(req -> req
-                .requestMatchers(
-                    "/auth/v1/login", "/auth/v1/refreshToken", "/auth/v1/signup")
+                .requestMatchers("/auth/v1/**")
                 .permitAll().anyRequest().authenticated());
 
         security.sessionManagement(session -> session

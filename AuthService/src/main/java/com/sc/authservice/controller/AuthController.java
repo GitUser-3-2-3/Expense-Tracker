@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("auth/v1/")
+@RequestMapping("/auth/v1")
 public class AuthController {
 
     private final AuthenticationService authenticationService;
@@ -23,7 +23,7 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody UserInfoDTO userInfoDTO) {
         try {
             Object user = authenticationService.signup(userInfoDTO);

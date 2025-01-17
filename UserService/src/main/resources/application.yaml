@@ -17,10 +17,11 @@ spring:
 
   kafka:
     consumer:
-      group-id: userinfo-consumer-group
       bootstrap-servers: localhost:9092
-      key-deserializer: org.apache.kafka.common.serializer.StringDeserializer
-      value-deserializer: com/sc/userservice/serializer/UserInfoDeserializer.java
+      group-id: userinfo-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.sc.userservice.serializer.UserInfoDeserializer
     #Custom
     topic:
       name: ExpenseApp-Auth
