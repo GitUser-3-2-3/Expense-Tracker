@@ -2,8 +2,9 @@ package com.sc.authservice.services;
 
 import com.sc.authservice.entities.UserInfo;
 import com.sc.authservice.model.UserInfoDTO;
+import com.sc.authservice.producer.UserInfoProducer;
 import com.sc.authservice.repositories.UserInfoRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +16,19 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
-@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserInfoRepository userInfoRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserInfoProducer userInfoProducer;
+
+    @Autowired
+    public UserDetailsServiceImpl(
+        UserInfoRepository userInfoRepository, PasswordEncoder passwordEncoder, UserInfoProducer userInfoProducer) {
+        this.userInfoRepository = userInfoRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userInfoProducer = userInfoProducer;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,13 +46,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public Boolean signupUser(UserInfoDTO userInfoDTO) {
         userInfoDTO.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
         if (Objects.nonNull(checkIfUserAlreadyExists(userInfoDTO))) {
-            return false;
+            return Boolean.FALSE;
         }
         String userId = UUID.randomUUID().toString();
 
         UserInfo userInfo = UserInfo.builder().userId(userId).username(userInfoDTO.getUsername())
             .password(userInfoDTO.getPassword()).roles(new HashSet<>()).build();
         userInfoRepository.save(userInfo);
-        return true;
+
+        // Push event to queue
+        userInfoProducer.sendEventToKafka(userInfoDTO);
+        return Boolean.TRUE;
     }
 }
