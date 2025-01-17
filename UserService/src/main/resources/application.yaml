@@ -1,0 +1,26 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: USER-SERVICE
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/userservice
+    username: root
+    password: Qwerty1,0*
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    consumer:
+      group-id: userinfo-consumer-group
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serializer.StringDeserializer
+      value-deserializer: com/sc/userservice/serializer/UserInfoDeserializer.java
+    #Custom
+    topic:
+      name: ExpenseApp-Auth
