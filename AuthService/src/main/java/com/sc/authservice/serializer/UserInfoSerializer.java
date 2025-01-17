@@ -12,14 +12,14 @@ public class UserInfoSerializer implements Serializer<UserInfoDTO> {
     @Override
     public byte[] serialize(String s, UserInfoDTO userInfoDTO) {
         ObjectMapper objectMapper = new ObjectMapper();
-        byte[] retVal = null;
         try {
-            retVal = objectMapper.writeValueAsBytes(userInfoDTO);
+            byte[] retVal = objectMapper.writeValueAsBytes(userInfoDTO);
             log.info("userInfoDTO converted to bytes:: {}", retVal);
+            return retVal;
         }
         catch (JsonProcessingException rtExp) {
-            rtExp.printStackTrace();
+            log.error("ERROR in serializing UserInfoDTO:: {}", rtExp.getMessage());
+            return new byte[0];
         }
-        return retVal;
     }
 }

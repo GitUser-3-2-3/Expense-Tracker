@@ -11,5 +11,5 @@ public class UserInfoDTO extends UserInfo {
     private String password;
     private String userEmail;
 
-    private Long userPhoneNumber;
+    private Integer userPhoneNumber;
 }
