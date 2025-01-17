@@ -1,5 +1,6 @@
 services:
   zookeeper:
+    container_name: Zookeeper-ExTracker
     image: confluentinc/cp-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -8,6 +9,7 @@ services:
       - "2181:2181"
 
   kafka:
+    container_name: Kafka-ExTracker
     image: confluentinc/cp-kafka
     depends_on:
       - zookeeper
@@ -23,17 +25,16 @@ services:
     container_name: Mysql-ExTracker
     image: mysql:latest
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_USER: user
-      MYSQL_PASSWORD: Qwerty1,0*
+      MYSQL_DATABASE: authservice
       MYSQL_ROOT_PASSWORD: Qwerty1,0*
     ports:
       - "3306:3306"
     expose:
       - "3306"
     volumes:
-      - mysql-db:/var/lib/mysql
+      - mysql:/var/lib/mysql
+    restart: unless-stopped
 
 volumes:
-  mysql-db:
+  mysql:
     driver: local
