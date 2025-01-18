@@ -1,6 +1,6 @@
 package com.sc.userservice.consumer;
 
-import com.sc.userservice.models.UserInfoDTO;
+import com.sc.userservice.entities.UserInfo;
 import com.sc.userservice.repository.UserInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AuthServiceConsumer {
 
     @KafkaListener(
         topics = "${spring.kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
-    public void listenEventFromKafka(UserInfoDTO userInfo) {
+    public void listenEventFromKafka(UserInfo userInfo) {
         log.info("RECEIVED user:: {}", userInfo);
         userInfoRepository.save(userInfo);
     }

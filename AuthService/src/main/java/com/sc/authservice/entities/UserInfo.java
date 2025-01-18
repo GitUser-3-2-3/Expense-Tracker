@@ -25,7 +25,7 @@ public class UserInfo {
     private String password;
 
     private String userEmail;
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @ManyToMany
     @JoinTable(

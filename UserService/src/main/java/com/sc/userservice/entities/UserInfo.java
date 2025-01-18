@@ -1,29 +1,29 @@
-package com.sc.userservice.models;
+package com.sc.userservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users")
 @Data
 @Builder
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInfoDTO {
+public class UserInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String userId;
 
     private String username;
     private String password;
 
     private String userEmail;
-    private Integer phoneNumber;
+    private Long phoneNumber;
 }

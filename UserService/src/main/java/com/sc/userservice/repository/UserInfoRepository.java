@@ -1,11 +1,13 @@
 package com.sc.userservice.repository;
 
-import com.sc.userservice.models.UserInfoDTO;
+import com.sc.userservice.entities.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserInfoRepository extends JpaRepository<UserInfoDTO, String> {
+import java.util.Optional;
 
-    UserInfoDTO findByUserId(String userId);
+@Repository
+public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
+
+    Optional<UserInfo> findByUserId(String userId);
 }
