@@ -24,6 +24,9 @@ public class UserInfo {
     private String username;
     private String password;
 
+    private String userEmail;
+    private Integer phoneNumber;
+
     @ManyToMany
     @JoinTable(
         name = "users_role",

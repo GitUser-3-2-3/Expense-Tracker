@@ -1,6 +1,6 @@
 package com.sc.authservice.producer;
 
-import com.sc.authservice.model.UserInfoDTO;
+import com.sc.authservice.entities.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInfoProducer {
 
-    private final KafkaTemplate<String, UserInfoDTO> kafkaTemplate;
+    private final KafkaTemplate<String, UserInfo> kafkaTemplate;
 
     @Value("${spring.kafka.topic.name}")
     private String TOPIC_NAME;
 
     @Autowired
-    public UserInfoProducer(KafkaTemplate<String, UserInfoDTO> kafkaTemplate) {
+    public UserInfoProducer(KafkaTemplate<String, UserInfo> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendEventToKafka(UserInfoDTO userInfoDTO) {
-        Message<UserInfoDTO> userMsg = MessageBuilder.withPayload(userInfoDTO)
+    public void sendEventToKafka(UserInfo userInfoDTO) {
+        Message<UserInfo> userMsg = MessageBuilder.withPayload(userInfoDTO)
             .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME).build();
         kafkaTemplate.send(userMsg);
     }

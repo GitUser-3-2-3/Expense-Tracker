@@ -20,7 +20,8 @@ public class AuthServiceConsumer {
 
     @KafkaListener(
         topics = "${spring.kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
-    public void listenEventFromKafka(UserInfoDTO userInfoDTO) {
-        log.info("RECEIVED user:: {}", userInfoDTO);
+    public void listenEventFromKafka(UserInfoDTO userInfo) {
+        log.info("RECEIVED user:: {}", userInfo);
+        userInfoRepository.save(userInfo);
     }
 }

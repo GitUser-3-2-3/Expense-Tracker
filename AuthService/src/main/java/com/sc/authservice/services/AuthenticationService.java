@@ -1,9 +1,9 @@
 package com.sc.authservice.services;
 
 import com.sc.authservice.entities.RefreshToken;
+import com.sc.authservice.entities.UserInfo;
 import com.sc.authservice.jwt.JwtService;
 import com.sc.authservice.jwt.RefreshTokenService;
-import com.sc.authservice.model.UserInfoDTO;
 import com.sc.authservice.request.AuthRequestDTO;
 import com.sc.authservice.request.RefreshTokenRequestDTO;
 import com.sc.authservice.response.JwtResponseDTO;
@@ -34,14 +34,14 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public Object signup(UserInfoDTO userInfoDTO) {
-        Boolean isSignedUp = userDetailsService.signupUser(userInfoDTO);
+    public Object signup(UserInfo userInfo) {
+        Boolean isSignedUp = userDetailsService.signupUser(userInfo);
         if (Boolean.FALSE.equals(isSignedUp)) {
             return "User already exists. Try with a different username.";
         }
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userInfoDTO
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userInfo
             .getUsername());
-        String jwtToken = jwtService.generateToken(userInfoDTO.getUsername());
+        String jwtToken = jwtService.generateToken(userInfo.getUsername());
 
         return JwtResponseDTO.builder().accessToken(jwtToken)
             .refreshToken(refreshToken.getRefreshToken()).build();

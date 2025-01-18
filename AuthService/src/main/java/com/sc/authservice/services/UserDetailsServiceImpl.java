@@ -1,7 +1,6 @@
 package com.sc.authservice.services;
 
 import com.sc.authservice.entities.UserInfo;
-import com.sc.authservice.model.UserInfoDTO;
 import com.sc.authservice.producer.UserInfoProducer;
 import com.sc.authservice.repositories.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +38,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new CustomUserDetails(userInfo);
     }
 
-    public UserInfo checkIfUserAlreadyExists(UserInfoDTO userInfoDTO) {
-        return userInfoRepository.findByUsername(userInfoDTO.getUsername());
+    public UserInfo checkIfUserAlreadyExists(UserInfo userInfo) {
+        return userInfoRepository.findByUsername(userInfo.getUsername());
     }
 
-    public Boolean signupUser(UserInfoDTO userInfoDTO) {
-        userInfoDTO.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
-        if (Objects.nonNull(checkIfUserAlreadyExists(userInfoDTO))) {
+    public Boolean signupUser(UserInfo userInfo) {
+        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+        if (Objects.nonNull(checkIfUserAlreadyExists(userInfo))) {
             return Boolean.FALSE;
         }
         String userId = UUID.randomUUID().toString();
 
-        UserInfo userInfo = UserInfo.builder().userId(userId).username(userInfoDTO.getUsername())
-            .password(userInfoDTO.getPassword()).roles(new HashSet<>()).build();
-        userInfoRepository.save(userInfo);
+        UserInfo userInfoBuild = UserInfo.builder().userId(userId).username(userInfo.getUsername())
+            .password(userInfo.getPassword()).userEmail(userInfo.getUserEmail())
+            .phoneNumber(userInfo.getPhoneNumber())
+            .roles(new HashSet<>())
+            .build();
+        userInfoRepository.save(userInfoBuild);
 
         // Push event to queue
-        userInfoProducer.sendEventToKafka(userInfoDTO);
+        userInfoProducer.sendEventToKafka(userInfoBuild);
         return Boolean.TRUE;
     }
 }
