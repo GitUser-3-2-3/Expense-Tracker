@@ -6,7 +6,7 @@ spring:
     name: USER-SERVICE
 
   datasource:
-    url: jdbc:mysql://localhost:3306/userservice
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:userservice}
     username: root
     password: Qwerty1,0*
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +19,7 @@ spring:
 
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
       group-id: userinfo-consumer-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
