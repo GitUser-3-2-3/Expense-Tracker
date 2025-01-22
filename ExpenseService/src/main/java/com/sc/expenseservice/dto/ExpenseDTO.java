@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -36,6 +37,9 @@ public class ExpenseDTO {
     private void generateExternalId() {
         if (this.externalId == null) {
             this.externalId = UUID.randomUUID().toString();
+        }
+        if (this.createdAt == null) {
+            this.createdAt = new Timestamp(Instant.now().toEpochMilli());
         }
     }
 }
