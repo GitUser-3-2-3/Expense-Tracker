@@ -2,6 +2,7 @@ package com.sc.expenseservice.controller;
 
 import com.sc.expenseservice.dto.ExpenseDTO;
 import com.sc.expenseservice.service.ExpenseService;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,10 @@ public class ExpenseController {
     }
 
     @PostMapping("/createUpdate")
-    public ResponseEntity<ExpenseDTO> createOrUpdateExpense(@RequestBody ExpenseDTO expenseDTO) {
+    public ResponseEntity<ExpenseDTO> createOrUpdateExpense(
+        @RequestHeader(value = "userId") @NonNull String userId, @RequestBody ExpenseDTO expenseDTO) {
         try {
+            expenseDTO.setUserId(userId);
             ExpenseDTO expenseResponse = expenseService.createOrUpdateExpense(expenseDTO);
             return ResponseEntity.ok(expenseResponse);
         }
