@@ -45,7 +45,9 @@ public class AuthController {
 
     @GetMapping("/ping")
     public ResponseEntity<String> pingAuthorizedEndpoint() {
+        log.info("PING AUTHORIZED ENDPOINT REACHED");
         Authentication connectedUser = SecurityContextHolder.getContext().getAuthentication();
+        log.info("GOT CONNECTED USER::{}", connectedUser);
 
         if (connectedUser != null && connectedUser.isAuthenticated()) {
             UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(connectedUser.getName());

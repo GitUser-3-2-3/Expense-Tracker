@@ -26,12 +26,4 @@ public class UserInfo {
 
     private String userEmail;
     private Long phoneNumber;
-
-    @ManyToMany
-    @JoinTable(
-        name = "users_role",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<UserRole> roles = new HashSet<>();
 }

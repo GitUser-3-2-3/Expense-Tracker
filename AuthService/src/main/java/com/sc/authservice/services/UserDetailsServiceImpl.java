@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -52,7 +51,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserInfo userInfoBuild = UserInfo.builder().userId(userId).username(userInfo.getUsername())
             .password(userInfo.getPassword()).userEmail(userInfo.getUserEmail())
             .phoneNumber(userInfo.getPhoneNumber())
-            .roles(new HashSet<>())
             .build();
         userInfoRepository.save(userInfoBuild);
 

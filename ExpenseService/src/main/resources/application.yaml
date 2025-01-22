@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: EXPENSE-SERVICE
+
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:expenseservice}
     username: root
@@ -23,6 +24,6 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: com.sc.expenseservice.consumer.ExpenseDeserializer
-      #Custom
+    #Custom
     topic:
       name: ExpenseApp-Auth

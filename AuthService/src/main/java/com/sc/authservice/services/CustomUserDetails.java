@@ -1,7 +1,6 @@
 package com.sc.authservice.services;
 
 import com.sc.authservice.entities.UserInfo;
-import com.sc.authservice.entities.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,9 +21,7 @@ public class CustomUserDetails extends UserInfo implements UserDetails {
         this.password = byUsername.getPassword();
 
         List<GrantedAuthority> authList = new ArrayList<>();
-        for (UserRole role : byUsername.getRoles()) {
-            authList.add(new SimpleGrantedAuthority(role.getRoleName().toUpperCase()));
-        }
+        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         this.authorities = authList;
     }
 
